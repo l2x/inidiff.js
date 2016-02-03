@@ -74,6 +74,7 @@ password = 123456
 function launch() {
   var text1 = document.getElementById('text1').value;
   var text2 = document.getElementById('text2').value;
+  
   var inidiff = new IniDiff(text1, text2);
   var ds = inidiff.prettyHtml();
   document.getElementById('outputdiv').innerHTML = ds;

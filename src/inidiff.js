@@ -1,4 +1,8 @@
-;(function(){
+// inidiff.js - Compare two ini file and efficiently return a list of differences
+// Licensed under the MIT License
+// Author: l2x <leiyonglin@gmail.com>
+
+(function(){
 	function IniDiff(oldText, newText) {
 		this.oldText = oldText;
 		this.newText = newText;
