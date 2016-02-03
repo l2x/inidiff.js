@@ -1,0 +1,88 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>demo</title>
+	<link rel="stylesheet" type="text/css" href="">
+	<script src="../src/diff_match_patch.js"></script>
+	<script src="../src/Ini.js"></script>
+	<script src="../src/inidiff.js"></script>
+	<style>
+	body{
+		font-size: 14px;
+	}
+	textarea{
+		width: 40%;
+		height: 300px;
+	}
+	#outputdiv {
+		word-wrap: break-word;
+	}
+	#diff{
+		margin-top: 20px
+	}
+	</style>
+</head>
+<body>
+
+<textarea id="text1">
+; ini
+
+debug  = false
+listen = 8080
+
+[timeout]
+timeout       = 90
+read_timeout  = 30
+write_timeout = 30
+
+[database]
+host     = 127.0.0.1
+port     = 3306
+user     = username
+password = 123456
+
+[redis]
+host = 127.0.0.1
+port = 6379
+</textarea>
+<textarea id="text2">
+; ini
+
+debug  = true
+listen = 80
+
+[timeout]
+timeout       = 90
+read_timeout  = 30
+write_timeout = 30
+
+[database]
+host     = 127.0.0.1:3306
+user     = username
+password = 123456
+
+[redis]
+host = 127.0.0.1
+port = 6379
+password = 123456
+</textarea>
+
+<p><input type="button" onclick="launch()" value="Compute Diff"></p>
+
+<div id="outputdiv"></div>
+<div id="diff"></div>
+
+<script type="text/javascript" language="JavaScript">
+function launch() {
+  var text1 = document.getElementById('text1').value;
+  var text2 = document.getElementById('text2').value;
+  var inidiff = new IniDiff(text1, text2);
+  var ds = inidiff.prettyHtml();
+  document.getElementById('outputdiv').innerHTML = ds;
+
+  var diff = inidiff.diff()
+  document.getElementById('diff').innerHTML = JSON.stringify(diff);
+}
+</script>
+</body>
+</html>
