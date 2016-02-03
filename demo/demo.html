@@ -9,78 +9,101 @@
 		font-size: 14px;
 	}
 	textarea{
-		width: 40%;
-		height: 300px;
+		width: 99%;
+		height: 330px;
 	}
-	#outputdiv {
+	.clearfix{overflow:hidden;_zoom:1;}
+	.textinput{
+		float: left;
+		width: 49%;
+	}
+	.result {
+		border: 1px solid #afafaf;
+		padding: 20px;
+	}
+	#diffHtml {
 		word-wrap: break-word;
 	}
-	#diff{
+	#diffObj{
 		margin-top: 20px
 	}
 	</style>
 </head>
 <body>
 
-<textarea id="text1">
-; ini
+<div class="clearfix">
+<div class="textinput">
+	<h3>base text</h3>
+	<textarea id="baseText">
+	; ini
 
-debug  = false
-listen = 8080
+	debug  = false
+	listen = 8080
 
-[timeout]
-timeout       = 90
-read_timeout  = 30
-write_timeout = 30
+	[timeout]
+	timeout       = 90
+	read_timeout  = 30
+	write_timeout = 30
 
-[database]
-host     = 127.0.0.1
-port     = 3306
-user     = username
-password = 123456
+	[database]
+	host     = 127.0.0.1
+	port     = 3306
 
-[redis]
-host = 127.0.0.1
-port = 6379
-</textarea>
-<textarea id="text2">
-; ini
+	[redis]
+	host = 127.0.0.1
+	port = 6379
+	password = 123456
+	</textarea>
+</div>
 
-debug  = true
-listen = 80
+<div class="textinput">
+	<h3>new text</h3>
+	<textarea id="newText">
+	; ini
 
-[timeout]
-timeout       = 90
-read_timeout  = 30
-write_timeout = 30
+	debug  = false
+	listen = 80
 
-[database]
-host     = 127.0.0.1:3306
-user     = username
-password = 123456
+	[timeout]
+	timeout       = 5
+	read_timeout  = 5
+	write_timeout = 5
 
-[redis]
-host = 127.0.0.1
-port = 6379
-password = 123456
-</textarea>
+	[database]
+	host     = 127.0.0.1
+	port     = 3306
+	user     = test
+	password = 123456
+
+	[redis]
+	host = 127.0.0.1
+	port = 6379
+	</textarea>
+</div>
+</div>
+
 
 <p><input type="button" onclick="launch()" value="Compute Diff"></p>
 
-<div id="outputdiv"></div>
-<div id="diff"></div>
+<div class="result">
+	<p id="diffHtml"></p>
+</div>
+
+<div class="result">
+	<p id="diffObj"></p>
+</div>
 
 <script type="text/javascript" language="JavaScript">
 function launch() {
-  var text1 = document.getElementById('text1').value;
-  var text2 = document.getElementById('text2').value;
+  var text1 = document.getElementById('baseText').value;
+  var text2 = document.getElementById('newText').value;
   
   var inidiff = new IniDiff(text1, text2);
   var ds = inidiff.prettyHtml();
-  document.getElementById('outputdiv').innerHTML = ds;
+  document.getElementById('diffHtml').innerHTML = ds;
 
   var diff = inidiff.diff()
-  document.getElementById('diff').innerHTML = JSON.stringify(diff);
+  document.getElementById('diffObj').innerHTML = JSON.stringify(diff);
 }
 </script>
 </body>

@@ -9,6 +9,7 @@
 	}
 	IniDiff.prototype.prettyHtml = function() {
 		var dmp = new diff_match_patch();
+		//dmp.Diff_EditCost = parseFloat(10);
 		var d = dmp.diff_main(this.oldText, this.newText);
 		dmp.diff_cleanupEfficiency(d);
 		return dmp.diff_prettyHtml(d);
