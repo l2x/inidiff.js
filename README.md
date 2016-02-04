@@ -16,6 +16,8 @@ First, include the libraries
 <script src="/path/to/inidiff.min.js" type="text/javascript"></script>
 ```
 
+Next
+
 ```javascript
 
 var inidiff = new IniDiff(baseText, newText);
@@ -27,3 +29,8 @@ var html = inidiff.prettyHtml();
 var diff = inidiff.diff()
 
 ```
+
+## License
+Copyright (c) 2016 l2x. Licensed under
+[MIT LICENSE](https://github.com/l2x/inidiff.js/blob/master/LICENSE)
+for details.
