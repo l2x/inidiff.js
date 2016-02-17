@@ -21,17 +21,17 @@
      * Obtain the value of a property
      * Key format: [sect[:label].]property
      *
+     * @param {String} section
      * @param {String} key
      * @return {Mixed}
      */
-    Ini.prototype.get = function(key){
-        var v, parts = key.split('.');
+    Ini.prototype.get = function(section, key){
+        if (section === "") {
+            section = DEFAULT;
+        }
+        var v = this.sect.get(section);
 
-        key = parts.shift();
-        v = this.sect.get(key);
-
-        if (parts.length && v instanceof Ini.Section) {
-            key = parts.join('.');
+        if (v instanceof Ini.Section) {
             v = v.get(key);
         }
         
@@ -41,6 +41,11 @@
 
         return v;
     };
+
+    function trim(str)
+    {
+         return str.replace(/(^\s*)|(\s*$)/g, '');
+    }
 
     /**
      * @param {String} contents Ini file contents
@@ -88,9 +93,10 @@
 
             // Match property
             // NOTE: Does not support: prop = "foo" bar "baz"
-            m = /^([A-Za-z0-9._-]+)(\s*=\s*("(\\"|.)*"|[^#;]*)?)?/.exec(prop);
+            //m = /^([A-Za-z0-9._-]+)(\s*=\s*("(\\"|.)*"|[^#;]*)?)?/.exec(prop);
+            m = /^([^=]+)(\s*=\s*("(\\"|.)*"|[^#;]*)?)?/.exec(prop);
             if (m && m[0].length) {
-                key = m[1];
+                key = trim(m[1]);
                 if (m[3] && m[3].length) {
                     val = m[3];
 

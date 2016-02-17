@@ -1,8 +1,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>demo</title>
-	<link rel="stylesheet" type="text/css" href="">
+	<title>inidiff demo</title>
 	<script src="../inidiff.min.js"></script>
 	<style>
 	body{
@@ -35,53 +34,50 @@
 <div class="textinput">
 	<h3>base text</h3>
 	<textarea id="baseText">
-	; ini
+; ini
 
-	debug  = false
-	listen = 8080
+debug  = false
+listen = 8080
 
-	[timeout]
-	timeout       = 90
-	read_timeout  = 30
-	write_timeout = 30
+[timeout]
+timeout       = 90
+read_timeout  = 30
+write_timeout = 30
 
-	[database]
-	host     = 127.0.0.1
-	port     = 3306
+[database]
+host     = 127.0.0.1
+port     = 3306
 
-	[redis]
-	host = 127.0.0.1
-	port = 6379
-	password = 123456
-	</textarea>
+[redis]
+host = 127.0.0.1
+port = 6379
+password = 123456</textarea>
 </div>
 
 <div class="textinput">
 	<h3>new text</h3>
 	<textarea id="newText">
-	; ini
+; ini
 
-	debug  = false
-	listen = 80
+debug  = false
+listen = 80
 
-	[timeout]
-	timeout       = 5
-	read_timeout  = 5
-	write_timeout = 5
+[timeout]
+timeout       = 90
+read_timeout  = 5
+write_timeout = 5
 
-	[database]
-	host     = 127.0.0.1
-	port     = 3306
-	user     = test
-	password = 123456
+[database]
+host     = 127.1.0.1
+port     = 3306
+user     = test
+password = 123456
 
-	[redis]
-	host = 127.0.0.1
-	port = 6379
-	</textarea>
+[redis]
+host = 127.0.0.1
+port = 6379</textarea>
 </div>
 </div>
-
 
 <p><input type="button" onclick="launch()" value="Compute Diff"></p>
 
@@ -90,7 +86,7 @@
 </div>
 
 <div class="result">
-	<p id="diffObj"></p>
+	<p><pre id="diffObj"></pre></p>
 </div>
 
 <script type="text/javascript" language="JavaScript">
@@ -103,7 +99,7 @@ function launch() {
   document.getElementById('diffHtml').innerHTML = ds;
 
   var diff = inidiff.diff()
-  document.getElementById('diffObj').innerHTML = JSON.stringify(diff);
+  document.getElementById('diffObj').innerHTML = JSON.stringify(diff, undefined, 4);;
 }
 </script>
 </body>
